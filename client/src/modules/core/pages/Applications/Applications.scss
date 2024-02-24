@@ -1,0 +1,16 @@
+.app-container {
+  margin: 5vh 5vh 4vh 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  &.center-align {
+    justify-content: center;
+    align-items: center;
+  }
+  .card-component {
+    margin-top: 2vh;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+  }
+}
