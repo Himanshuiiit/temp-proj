@@ -20,7 +20,7 @@ const Login: React.FC = () => {
   }, []);
 
   const handleGoogleLogin = async () => {
-    window.location.href = 'http://localhost:3000/api/auth/google';
+    window.location.href = 'https://tooljet-v2.onrender.com/api/auth/google';
   };
   return (
     <Flex className="h-screen w-screen" vertical justify="center" align="center">
