@@ -5,14 +5,25 @@ import './Home.scss';
 
 import { useEffect } from 'react';
 
+import AxiosInstance from '../../../shared/apis/AxiosInstance';
+import useQuery from '../../../shared/hooks/useQuery';
 import AppHeader from '../../components/Header/Header';
 import LeftPane from '../../components/LeftPane/LeftPane';
 
 const { Content } = Layout;
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const query = useQuery();
   useEffect(() => {
-    navigate('/applications');
+    const setSession = async (token: string) => {
+      await AxiosInstance(`/auth/getsession/${token}`);
+      navigate('/applications');
+    };
+    if (query.get('token')) {
+      setSession(query.get('token')!);
+    } else {
+      navigate('/login');
+    }
   }, []);
 
   return (
