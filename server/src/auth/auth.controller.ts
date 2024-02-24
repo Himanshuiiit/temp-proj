@@ -20,7 +20,7 @@ export class AuthController {
 
     // set session to user id
     session.user = user.id;
-
+    res.cookie('session', session);
     return res.redirect(process.env.FRONTEND_URL_DEV);
     // return res.status(200).send({ message: 'Logged in' });
     // return res.redirect('ec2-13-233-118-100.ap-south-1.compute.amazonaws.com/api/users')
