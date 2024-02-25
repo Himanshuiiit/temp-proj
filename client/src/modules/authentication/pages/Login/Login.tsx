@@ -13,7 +13,6 @@ const Login: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(state.loggedIn);
     if (state.loggedIn) {
       navigate('/applications');
     }
