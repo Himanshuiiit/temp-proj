@@ -89,7 +89,7 @@ const Applications = () => {
   };
   useEffect(() => {
     const func = async () => {
-      const getUser = async () => 
+      const getUser = async () => {
         const res = await AxiosInstance.get('/users');
         if (res) {
           console.log(res);
