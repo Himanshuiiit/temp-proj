@@ -21,9 +21,9 @@ const Home: React.FC = () => {
     };
     if (query.get('token')) {
       setSession(query.get('token')!);
-    } else {
-      navigate('/login');
-    }
+    } else if(localStorage.getItem("user")) {
+      navigate('/applications');
+    } else  navigate('/login');
   }, []);
 
   return (
