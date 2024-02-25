@@ -88,10 +88,12 @@ const Applications = () => {
     }
   };
   useEffect(() => {
-    const getUser = async () => {
+    const func = async () => {
+      const getUser = async () => {
       try {
         const res = await AxiosInstance.get('/users');
         if (res) {
+          console.log(res);
           dispatch(setUser(res.data));
           dispatch(login());
         }
@@ -100,8 +102,10 @@ const Applications = () => {
         navigate('/login');
       }
     };
-    getUser();
-    getAppications();
+    await getUser();
+    await getAppications();
+    }
+    func();
   }, []);
   if (loading)
     return (
