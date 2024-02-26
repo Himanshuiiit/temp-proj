@@ -50,6 +50,7 @@ const Applications = () => {
         setAllApps((prevApps) =>
           prevApps.map((app) => (app.id === id ? { ...app, name: newAppName } : app))
         );
+        setConfirmLoading(false);
         message.success('Name updated successfully');
         getAppications();
       } else {
@@ -79,6 +80,7 @@ const Applications = () => {
         }
       });
       if (currPage.data.id) {
+        setConfirmLoading(false);
         await getAppications();
         message.success(`App ${appName} Created Successfully`);
       }
