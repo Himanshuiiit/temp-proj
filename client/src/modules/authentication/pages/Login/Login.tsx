@@ -27,12 +27,12 @@ const Login: React.FC = () => {
       <Text className="pb-4">
         New to Tooljet, <Link>Create an account</Link>
       </Text>
-      <Button className="w-80 h-10 my-3">
+      <Button className="w-80 h-10 my-3" onClick={handleGoogleLogin}>
         <img
           src="https://app.tooljet.com/assets/images/onboardingassets/SSO/Google.svg"
           className="pr-3 relative bottom-1 w-10"
         />{' '}
-        <Text className="relative bottom-5 text-md font-semibold" onClick={handleGoogleLogin}>
+        <Text className="relative bottom-5 text-md font-semibold" >
           Login with Google
         </Text>
       </Button>
