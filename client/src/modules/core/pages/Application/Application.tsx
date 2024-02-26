@@ -30,8 +30,8 @@ const Application: React.FC = () => {
   const [active, setActive] = useState<componentType | null>(null);
   const dispatch = useDispatch();
 
-  console.log("active version", activeVersion);
-  
+  console.log('active version', activeVersion, localStorage.getItem('activeVersion'));
+
   const getCurrentComponents = async () => {
     const currApp = await AxiosInstance.post('/apps', { appId: id });
     setVersions(currApp.data.versions);
@@ -41,8 +41,8 @@ const Application: React.FC = () => {
       versionId: activeVersion ? activeVersion.id : currApp.data.versions[0].id
     });
     if (!localStorage.getItem('activeVersion')) {
-      console.log("again inside");
-      
+      console.log('again inside');
+
       setActiveVersion(currApp.data.versions[0]);
       localStorage.setItem('activeVersion', JSON.stringify(currApp.data.versions[0]));
     }
