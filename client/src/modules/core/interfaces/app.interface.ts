@@ -18,6 +18,7 @@ export type AppicationType = {
 };
 
 export type VersionType = {
+  createdAt: string;
   id: string;
   name: string;
   appId: string;
