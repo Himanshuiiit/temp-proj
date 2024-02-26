@@ -23,6 +23,7 @@ interface AppCardProps {
   id: string;
   onDelete: (id: string) => void;
   onUpdateTitle: (id: string, newTitle: string) => void; // New prop to handle title updates
+  confirmLoading: boolean;
 }
 const AppCard: React.FC<AppCardProps> = ({
   title,
@@ -30,7 +31,8 @@ const AppCard: React.FC<AppCardProps> = ({
   isDeployed,
   id,
   onDelete,
-  onUpdateTitle
+  onUpdateTitle,
+  confirmLoading
 }) => {
   const navigate = useNavigate();
   const [isHover, setisHover] = useState<boolean>(false);
@@ -99,8 +101,9 @@ const AppCard: React.FC<AppCardProps> = ({
               width={400}
               centered
               title="Rename App"
-              visible={isModalVisible}
+              open={isModalVisible}
               onCancel={handleCancel}
+              confirmLoading={confirmLoading}
               footer={[
                 <Button key="cancel" onClick={handleCancel}>
                   Cancel

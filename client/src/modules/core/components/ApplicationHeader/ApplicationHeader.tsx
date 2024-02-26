@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, message, Modal, Select, Spin, Typography } from 'antd';
+import { Button, Input, message, Modal, Select, Typography } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 
 import AxiosInstance from '../../../shared/apis/AxiosInstance';

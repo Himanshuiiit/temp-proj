@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { Button, Input, message, Modal, Spin } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ const Applications = () => {
   const [loading, setLoading] = useState(true);
   const [appName, setAppName] = useState<string>('');
   const [allApps, setAllApps] = useState<AppType[]>([]);
+  const [confirmLoading, setConfirmLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ const Applications = () => {
   };
   const handleUpdateAppName = async (id: string, newAppName: string) => {
     try {
-      setLoading(true);
+      setConfirmLoading(true);
       if (appName.length <= 50 && !allApps.find((item) => item.name === newAppName)) {
         await AxiosInstance.post(`/apps/update`, { name: newAppName, appId: id });
         setAllApps((prevApps) =>
@@ -62,7 +63,7 @@ const Applications = () => {
   };
   const createNewApp = async () => {
     if (appName.length <= 50 && !allApps.find((item) => item.name === appName)) {
-      setLoading(true);
+      setConfirmLoading(true);
       const res = await AxiosInstance.post('/apps/create', { name: appName });
       const currApp = await AxiosInstance.post('/apps', { appId: res.data.id });
       const currentVersion = await AxiosInstance.post('/versions', {
@@ -128,7 +129,7 @@ const Applications = () => {
         onCancel={handleCancel}
         onOk={createNewApp}
         okText="Create"
-        confirmLoading={loading}
+        confirmLoading={confirmLoading}
         okButtonProps={{ disabled: !appName || loading }}
       >
         <p className="font-normal text-gray1000">App Name</p>
@@ -154,6 +155,7 @@ const Applications = () => {
               id={item.id}
               onDelete={handleDeleteApp}
               onUpdateTitle={handleUpdateAppName}
+              confirmLoading={confirmLoading}
             />
           ))}
         </div>
