@@ -3,7 +3,7 @@ import { DoubleRightOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Flex, Layout } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { json, useNavigate, useParams } from 'react-router-dom';
 
 import AxiosInstance from '../../../shared/apis/AxiosInstance.ts';
 import ApplicationHeader from '../../components/ApplicationHeader/ApplicationHeader.tsx';
@@ -23,11 +23,8 @@ const Application: React.FC = () => {
   const [components, setComponents] = useState<componentType[]>([]);
 
   const [versions, setVersions] = useState([]);
-  const [activeVersion, setActiveVersion] = useState<VersionType>(
-    // localStorage.getItem('activeVersion')
-    //   ? JSON.parse(localStorage.getItem('activeVersion')!)
-    //   : null
-  );
+  const [activeVersion, setActiveVersion] = useState<VersionType>();
+  localStorage.getItem('activeVersion') ? JSON.parse(localStorage.getItem('activeVersion')!) : null;
   const [currPageId, setCurrPageId] = useState('');
 
   const [active, setActive] = useState<componentType | null>(null);
@@ -44,7 +41,7 @@ const Application: React.FC = () => {
     });
     if (!activeVersion) {
       setActiveVersion(currApp.data.versions[0]);
-      localStorage.setItem('activeVersion', currApp.data.versions[0]);
+      localStorage.setItem('activeVersion', JSON.stringify(currApp.data.versions[0]));
     }
     setCurrPageId(currentVersion.data.pages[0].id);
     setComponents(
