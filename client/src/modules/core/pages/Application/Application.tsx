@@ -23,10 +23,12 @@ const Application: React.FC = () => {
   const [components, setComponents] = useState<componentType[]>([]);
 
   const [versions, setVersions] = useState([]);
-  const [activeVersion, setActiveVersion] = useState<VersionType>();
-  localStorage.getItem('activeVersion') ? JSON.parse(localStorage.getItem('activeVersion')!) : null;
+  const [activeVersion, setActiveVersion] = useState<VersionType>(
+    localStorage.getItem('activeVersion')
+      ? JSON.parse(localStorage.getItem('activeVersion')!)
+      : null
+  );
   const [currPageId, setCurrPageId] = useState('');
-
   const [active, setActive] = useState<componentType | null>(null);
   const dispatch = useDispatch();
 
