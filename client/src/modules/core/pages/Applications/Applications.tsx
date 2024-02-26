@@ -95,15 +95,13 @@ const Applications = () => {
           console.log(res);
           dispatch(setUser(res.data));
           dispatch(login());
+        } else {
+          navigate('/login');
         }
-       else {
-         console.log(error);
-        navigate('/login');
-       }
+      };
+      await getUser();
+      await getAppications();
     };
-    await getUser();
-    await getAppications();
-    }
     func();
   }, []);
   if (loading)

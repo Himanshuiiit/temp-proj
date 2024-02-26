@@ -11,6 +11,7 @@ type Props = {
   setActiveVersion: (version: VersionType) => void;
   activeVersion: VersionType;
   getCurrentComponents: () => void;
+  setLoading: (loading: boolean) => void;
 };
 
 const ApplicationHeader: React.FC<Props> = ({
@@ -18,11 +19,13 @@ const ApplicationHeader: React.FC<Props> = ({
   versions,
   setActiveVersion,
   activeVersion,
-  getCurrentComponents
+  getCurrentComponents,
+  setLoading
 }) => {
   const [versionName, setVersionName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const createNewVersion = async () => {
+    setLoading(true)
     await AxiosInstance.post('/apps/create-version', {
       appId,
       versionId: activeVersion.id,

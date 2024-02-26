@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DoubleRightOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Flex, Layout } from 'antd';
+import { Button, Flex, Layout, Spin } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -20,8 +20,8 @@ const { Content, Sider } = Layout;
 const Application: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [loading, setLoading] = useState<boolean>(false);
   const [components, setComponents] = useState<componentType[]>([]);
-
   const [versions, setVersions] = useState([]);
   const [activeVersion, setActiveVersion] = useState<VersionType>(
     localStorage.getItem('activeVersion')
@@ -32,9 +32,8 @@ const Application: React.FC = () => {
   const [active, setActive] = useState<componentType | null>(null);
   const dispatch = useDispatch();
 
-  console.log('active version', activeVersion, localStorage.getItem('activeVersion'));
-
   const getCurrentComponents = async () => {
+    setLoading(true);
     const currApp = await AxiosInstance.post('/apps', { appId: id });
     setVersions(currApp.data.versions);
 
@@ -55,16 +54,19 @@ const Application: React.FC = () => {
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       )
     );
+    setLoading(false);
   };
 
   onkeydown = async (e: KeyboardEvent) => {
     if (e.key === 'Delete') {
-      if (active)
+      if (active) {
+        setLoading(true);
         await AxiosInstance.delete('/components', {
           data: { componentId: active.id, appId: id }
         });
-      setActive(null);
-      getCurrentComponents();
+        setActive(null);
+        getCurrentComponents();
+      }
     }
   };
 
@@ -154,22 +156,28 @@ const Application: React.FC = () => {
             setActiveVersion={setActiveVersion}
             activeVersion={activeVersion!}
             getCurrentComponents={getCurrentComponents}
+            setLoading={setLoading}
           />
-
-          <Content onClick={() => setActive(null)} className="bg-[#e9eff1]">
-            {components.map((comp) => (
-              <RnD
-                comp={comp}
-                key={comp.id}
-                handleDragStop={handleDragStop}
-                handleResizeStop={handleResizeStop}
-                setActive={setActive}
-                active={active}
-              >
-                {comp.styles.content}
-              </RnD>
-            ))}
-          </Content>
+          {!loading ? (
+            <Content onClick={() => setActive(null)} className="bg-[#e9eff1]">
+              {components.map((comp) => (
+                <RnD
+                  comp={comp}
+                  key={comp.id}
+                  handleDragStop={handleDragStop}
+                  handleResizeStop={handleResizeStop}
+                  setActive={setActive}
+                  active={active}
+                >
+                  {comp.styles.content}
+                </RnD>
+              ))}
+            </Content>
+          ) : (
+            <div className="example w-full h-full flex justify-center items-center align-center">
+              <Spin size="large" />
+            </div>
+          )}
         </Layout>
         <Sider theme="light" className="h-screen" width={290}>
           <Header
