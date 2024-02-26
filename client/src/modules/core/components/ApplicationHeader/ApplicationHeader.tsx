@@ -56,7 +56,7 @@ const ApplicationHeader: React.FC<Props> = ({
       <div>
         <Select
           className="w-40 text-black"
-          defaultValue={activeVersion ? activeVersion.name : '...'}
+          value={activeVersion ? activeVersion.name : '...'}
           onChange={handleChange}
           options={[
             ...versions
