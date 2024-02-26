@@ -23,7 +23,11 @@ const Application: React.FC = () => {
   const [components, setComponents] = useState<componentType[]>([]);
 
   const [versions, setVersions] = useState([]);
-  const [activeVersion, setActiveVersion] = useState<VersionType>();
+  const [activeVersion, setActiveVersion] = useState<VersionType>(
+    localStorage.getItem('activeVersion')
+      ? JSON.parse(localStorage.getItem('activeVersion')!)
+      : null
+  );
   const [currPageId, setCurrPageId] = useState('');
 
   const [active, setActive] = useState<componentType | null>(null);
@@ -38,7 +42,10 @@ const Application: React.FC = () => {
       appId: id,
       versionId: activeVersion ? activeVersion.id : currApp.data.versions[0].id
     });
-    if (!activeVersion) setActiveVersion(currApp.data.versions[0]);
+    if (!activeVersion) {
+      setActiveVersion(currApp.data.versions[0]);
+      localStorage.setItem('activeVersion', currApp.data.versions[0]);
+    }
     setCurrPageId(currentVersion.data.pages[0].id);
     setComponents(
       currentVersion.data.pages[0].components.sort(
