@@ -92,6 +92,16 @@ const Release = () => {
             return null;
         }
       })}
+      <span
+        className="absolute bottom-8 right-8 bg-blue-500 text-white px-4 py-3 cursor-pointer rounded-full"
+        onClick={() => {
+          navigator.clipboard.writeText(window.location.href);
+          message.success('Link copied to clipboard');
+        }}
+      >
+        <CopyOutlined className="text-md pr-2" />
+        Copy link{' '}
+      </span>
     </div>
   );
 };
