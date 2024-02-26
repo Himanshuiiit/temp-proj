@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, message, Modal, Select, Typography } from 'antd';
+import { Button, Input, message, Modal, Select, Spin, Typography } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 
 import AxiosInstance from '../../../shared/apis/AxiosInstance';
 import { VersionType } from '../../interfaces/app.interface';
+import { LoadingOutlined } from '@ant-design/icons';
 
 type Props = {
   appId: string;
@@ -12,6 +13,7 @@ type Props = {
   activeVersion: VersionType;
   getCurrentComponents: () => void;
   setLoading: (loading: boolean) => void;
+  loading: boolean
 };
 
 const ApplicationHeader: React.FC<Props> = ({
@@ -20,7 +22,8 @@ const ApplicationHeader: React.FC<Props> = ({
   setActiveVersion,
   activeVersion,
   getCurrentComponents,
-  setLoading
+  setLoading,
+  loading
 }) => {
   const [versionName, setVersionName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -78,6 +81,11 @@ const ApplicationHeader: React.FC<Props> = ({
           open={modalVisible}
           onCancel={() => setModalVisible(false)}
           onOk={createNewVersion}
+          okText={loading ? (
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+          ) : (
+            'Create'
+          )}
         >
           <Input
             value={versionName}

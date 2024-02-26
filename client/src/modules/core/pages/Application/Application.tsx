@@ -173,6 +173,7 @@ const Application: React.FC = () => {
             activeVersion={activeVersion!}
             getCurrentComponents={getCurrentComponents}
             setLoading={setLoading}
+            loading={loading}
           />
           {!loading ? (
             <Content onClick={() => setActive(null)} className="bg-[#e9eff1]">
