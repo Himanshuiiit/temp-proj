@@ -127,13 +127,8 @@ const Applications = () => {
         open={open}
         onCancel={handleCancel}
         onOk={createNewApp}
-        okText={
-          loading ? (
-            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-          ) : (
-            'Create'
-          )
-        }
+        okText="Create"
+        confirmLoading={loading}
         okButtonProps={{ disabled: !appName || loading }}
       >
         <p className="font-normal text-gray1000">App Name</p>
