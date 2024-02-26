@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DoubleRightOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Flex, Layout, Spin } from 'antd';
+import { Button, Flex, Layout, message, Spin } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -58,6 +58,10 @@ const Application: React.FC = () => {
   };
 
   onkeydown = async (e: KeyboardEvent) => {
+    if (activeVersion.released) {
+      message.warning("Can't change on released version");
+      return;
+    }
     if (e.key === 'Delete') {
       if (active) {
         setLoading(true);
@@ -71,6 +75,10 @@ const Application: React.FC = () => {
   };
 
   const handleDragStop = async (e: any, d: any, compId: string) => {
+    if (activeVersion.released) {
+      message.warning("Can't change on released version");
+      return;
+    }
     setComponents((prev) => {
       const newComponents = prev.map((comp) => {
         return comp.id !== compId
@@ -105,6 +113,10 @@ const Application: React.FC = () => {
     position: any,
     compId: string
   ) => {
+    if (activeVersion.released) {
+      message.warning("Can't change on released version");
+      return;
+    }
     setComponents((prev) => {
       const newComponents = prev.map((comp) => {
         return comp.id !== compId
@@ -137,6 +149,10 @@ const Application: React.FC = () => {
   }, []);
 
   const createCompnent = async (type: string) => {
+    if (activeVersion.released) {
+      message.warning("Can't change on released version");
+      return;
+    }
     setLoading(true);
     await createNewComponent(id!, currPageId, type);
     getCurrentComponents();
