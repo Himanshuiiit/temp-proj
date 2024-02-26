@@ -60,7 +60,10 @@ const ApplicationHeader: React.FC<Props> = ({
           className="w-40 text-black"
           defaultValue='v1'
           onChange={handleChange}
-          options={[...versions.map((version: VersionType) => {
+          options={[...versions.sort(
+        (a: VersionType, b: VersionType) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      ).map((version: VersionType) => {
             return { label: version.name, value: version.name };
           }),{label:<Button onClick={()=>openModal()}>+Create new</Button>}]}
       />
