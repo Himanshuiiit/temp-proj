@@ -138,7 +138,10 @@ const AppCard: React.FC<AppCardProps> = ({
               >
                 <Button
                   disabled={!isDeployed}
-                  onClick={() => navigate(`/release/${id}?versionId=${versionId}`)}
+                  onClick={() => {
+                    localStorage.removeItem('activeVersion');
+                    navigate(`/release/${id}?versionId=${versionId}`);
+                  }}
                 >
                   {isDeployed ? <RocketTwoTone /> : <RocketOutlined color="black" />}Launch
                 </Button>
