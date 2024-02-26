@@ -24,9 +24,9 @@ const Application: React.FC = () => {
 
   const [versions, setVersions] = useState([]);
   const [activeVersion, setActiveVersion] = useState<VersionType>(
-    localStorage.getItem('activeVersion')
-      ? JSON.parse(localStorage.getItem('activeVersion')!)
-      : null
+    // localStorage.getItem('activeVersion')
+    //   ? JSON.parse(localStorage.getItem('activeVersion')!)
+    //   : null
   );
   const [currPageId, setCurrPageId] = useState('');
 
