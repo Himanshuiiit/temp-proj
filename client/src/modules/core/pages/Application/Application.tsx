@@ -30,7 +30,7 @@ const Application: React.FC = () => {
   const [active, setActive] = useState<componentType | null>(null);
   const dispatch = useDispatch();
 
-  console.log(activeVersion);
+  console.log("active version", activeVersion);
   
   const getCurrentComponents = async () => {
     const currApp = await AxiosInstance.post('/apps', { appId: id });
