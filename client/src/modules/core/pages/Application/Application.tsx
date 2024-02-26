@@ -3,7 +3,7 @@ import { DoubleRightOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Flex, Layout } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import { useDispatch } from 'react-redux';
-import { json, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import AxiosInstance from '../../../shared/apis/AxiosInstance.ts';
 import ApplicationHeader from '../../components/ApplicationHeader/ApplicationHeader.tsx';
@@ -32,7 +32,6 @@ const Application: React.FC = () => {
 
   const getCurrentComponents = async () => {
     const currApp = await AxiosInstance.post('/apps', { appId: id });
-
     setVersions(currApp.data.versions);
 
     const currentVersion = await AxiosInstance.post('/versions', {
@@ -40,6 +39,7 @@ const Application: React.FC = () => {
       versionId: activeVersion ? activeVersion.id : currApp.data.versions[0].id
     });
     if (!activeVersion) {
+      console.log("inside the getComp");
       setActiveVersion(currApp.data.versions[0]);
       localStorage.setItem('activeVersion', JSON.stringify(currApp.data.versions[0]));
     }

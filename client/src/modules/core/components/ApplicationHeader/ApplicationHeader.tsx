@@ -42,6 +42,7 @@ const ApplicationHeader: React.FC<Props> = ({
     setActiveVersion(newActiveVersion);
     localStorage.setItem('activeVersion', JSON.stringify(newActiveVersion));
   };
+
   useEffect(() => {
     getCurrentComponents();
   }, [activeVersion]);
@@ -55,7 +56,7 @@ const ApplicationHeader: React.FC<Props> = ({
       <div>
         <Select
           className="w-40 text-black"
-          defaultValue={activeVersion ? activeVersion.name : 'v1'}
+          defaultValue={activeVersion ? activeVersion.name : '...'}
           onChange={handleChange}
           options={[
             ...versions
