@@ -194,6 +194,7 @@ const Application: React.FC = () => {
             <Button
               type="primary"
               onClick={async () => {
+                setLoading(true);
                 await AxiosInstance.post('/apps/release', {
                   appId: id,
                   versionId: activeVersion?.id
