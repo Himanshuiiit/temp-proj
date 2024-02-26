@@ -47,10 +47,10 @@ const Applications = () => {
       setConfirmLoading(true);
       if (appName.length <= 50 && !allApps.find((item) => item.name === newAppName)) {
         await AxiosInstance.post(`/apps/update`, { name: newAppName, appId: id });
+        setConfirmLoading(false);
         setAllApps((prevApps) =>
           prevApps.map((app) => (app.id === id ? { ...app, name: newAppName } : app))
         );
-        setConfirmLoading(false);
         message.success('Name updated successfully');
         getAppications();
       } else {

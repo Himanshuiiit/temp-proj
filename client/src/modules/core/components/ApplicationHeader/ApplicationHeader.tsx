@@ -20,14 +20,13 @@ const ApplicationHeader: React.FC<Props> = ({
   versions,
   setActiveVersion,
   activeVersion,
-  getCurrentComponents,
-  setLoading,
-  loading
+  getCurrentComponents
 }) => {
   const [versionName, setVersionName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
   const createNewVersion = async () => {
-    setLoading(true);
+    setConfirmLoading(true);
     await AxiosInstance.post('/apps/create-version', {
       appId,
       versionId: activeVersion.id,
@@ -35,6 +34,7 @@ const ApplicationHeader: React.FC<Props> = ({
     });
     setVersionName('');
     setModalVisible(false);
+    setConfirmLoading(false);
     message.success('New version created!');
     getCurrentComponents();
   };
@@ -81,7 +81,7 @@ const ApplicationHeader: React.FC<Props> = ({
           onCancel={() => setModalVisible(false)}
           onOk={createNewVersion}
           okText="Create"
-          confirmLoading={loading}
+          confirmLoading={confirmLoading}
         >
           <Input
             value={versionName}
