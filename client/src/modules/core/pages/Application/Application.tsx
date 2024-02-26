@@ -139,7 +139,6 @@ const Application: React.FC = () => {
   const createCompnent = async (type: string) => {
     setLoading(true);
     await createNewComponent(id!, currPageId, type);
-
     getCurrentComponents();
   };
 

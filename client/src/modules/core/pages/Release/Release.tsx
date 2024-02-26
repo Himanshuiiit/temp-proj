@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Typography } from 'antd';
+import { Typography, message } from 'antd';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { CopyOutlined } from '@ant-design/icons';
