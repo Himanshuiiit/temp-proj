@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Typography } from 'antd';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { CopyOutlined } from '@ant-design/icons';
 
 import AxiosInstance from '../../../shared/apis/AxiosInstance';
 import AppHeader from '../../components/Header/Header';
