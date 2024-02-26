@@ -27,8 +27,6 @@ const Application: React.FC = () => {
   localStorage.getItem('activeVersion') ? JSON.parse(localStorage.getItem('activeVersion')!) : null;
   const [currPageId, setCurrPageId] = useState('');
 
-  console.log(localStorage.getItem('activeVersion'));
-
   const [active, setActive] = useState<componentType | null>(null);
   const dispatch = useDispatch();
 
@@ -40,8 +38,7 @@ const Application: React.FC = () => {
       appId: id,
       versionId: activeVersion ? activeVersion.id : currApp.data.versions[0].id
     });
-    if (!activeVersion) {
-      console.log('inside the getComp');
+    if (!localStorage.getItem('activeVersion')) {
       setActiveVersion(currApp.data.versions[0]);
       localStorage.setItem('activeVersion', JSON.stringify(currApp.data.versions[0]));
     }
