@@ -25,7 +25,7 @@ const Login: React.FC = () => {
     <Flex className="h-screen w-screen" vertical justify="center" align="center">
       <Title level={2}>Sign In</Title>
       <Text className="pb-4">
-        New to Tooljet, <Link>Create an account</Link>
+        New to ToolBASH, <Link>Create an account</Link>
       </Text>
       <Button className="w-80 h-10 my-3" onClick={handleGoogleLogin}>
         <img
