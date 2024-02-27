@@ -38,7 +38,7 @@ const Release = () => {
   };
   return (
     <div className="bg-[#e9eff1] w-full h-[100vh]">
-      {user.id && <AppHeader />}
+      {user.user.id && <AppHeader />}
       <div className="relative">
         {components.map((comp: componentType) => {
           switch (comp.type) {
@@ -98,7 +98,7 @@ const Release = () => {
           }
         })}
       </div>
-      {user.id && (
+      {user.user.id && (
         <span
           className="absolute bottom-8 right-8 bg-blue-500 text-white px-4 py-3 cursor-pointer rounded-full"
           onClick={() => {
