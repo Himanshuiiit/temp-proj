@@ -58,11 +58,12 @@ const Application: React.FC = () => {
   };
 
   onkeydown = async (e: KeyboardEvent) => {
-    if (activeVersion.released) {
-      message.warning("Can't change on released version");
-      return;
-    }
+    
     if (e.key === 'Delete') {
+      if (activeVersion.released) {
+        message.warning("Can't change on released version");
+        return;
+      }
       if (active) {
         const toDelete = active;
         setActive(null);
