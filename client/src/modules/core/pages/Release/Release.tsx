@@ -12,6 +12,7 @@ const Release = () => {
   const { id } = useParams();
 
   const state = useSelector(({ component }) => component);
+  const user = useSelector(({ auth }) => auth);
 
   const [components, setComponents] = useState(state.components);
 
@@ -35,7 +36,7 @@ const Release = () => {
   };
   return (
     <div className="bg-[#e9eff1] w-full h-[100vh]">
-      <AppHeader />
+      {user.id && <AppHeader />}
       <div className="relative">
         {components.map((comp: componentType) => {
           switch (comp.type) {
@@ -95,16 +96,18 @@ const Release = () => {
           }
         })}
       </div>
-      <span
-        className="absolute bottom-8 right-8 bg-blue-500 text-white px-4 py-3 cursor-pointer rounded-full"
-        onClick={() => {
-          navigator.clipboard.writeText(window.location.href);
-          message.success('Link copied to clipboard');
-        }}
-      >
-        <CopyOutlined className="text-md pr-2" />
-        Copy link{' '}
-      </span>
+      {user.id && (
+        <span
+          className="absolute bottom-8 right-8 bg-blue-500 text-white px-4 py-3 cursor-pointer rounded-full"
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+            message.success('Link copied to clipboard');
+          }}
+        >
+          <CopyOutlined className="text-md pr-2" />
+          Copy link{' '}
+        </span>
+      )}
     </div>
   );
 };
