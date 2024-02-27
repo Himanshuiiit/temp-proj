@@ -52,6 +52,7 @@ const AppCard: React.FC<AppCardProps> = ({
     setisHover(false);
   };
   const handleClick = () => {
+    localStorage.removeItem('activeVersion');
     navigate(`/application/${id}`);
   };
   const handleAppNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -139,7 +140,6 @@ const AppCard: React.FC<AppCardProps> = ({
                 <Button
                   disabled={!isDeployed}
                   onClick={() => {
-                    localStorage.removeItem('activeVersion');
                     navigate(`/release/${id}?versionId=${versionId}`);
                   }}
                 >
