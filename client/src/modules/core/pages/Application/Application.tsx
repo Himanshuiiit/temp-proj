@@ -216,7 +216,7 @@ const Application: React.FC = () => {
                   appId: id,
                   versionId: activeVersion?.id
                 });
-                localStorage.setItem('activeVerison', JSON.stringify({...activeVersion, released: true}));
+                localStorage.setItem('activeVersion', JSON.stringify({...activeVersion, released: true}));
                 navigate(`/release/${id}?versionId=${activeVersion?.id}`);
               }}
             >
