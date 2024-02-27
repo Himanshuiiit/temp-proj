@@ -35,6 +35,7 @@ const Applications = () => {
   const handleDeleteApp = async (id: String) => {
     try {
       const body = { appId: id };
+      setLoading(true);
       await AxiosInstance.delete('/apps', { data: body });
       getAppications();
       message.error('App deleted successfully');
