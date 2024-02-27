@@ -64,12 +64,14 @@ const Application: React.FC = () => {
     }
     if (e.key === 'Delete') {
       if (active) {
-        setLoading(true);
-        await AxiosInstance.delete('/components', {
-          data: { componentId: active.id, appId: id }
-        });
+        const toDelete = active;
         setActive(null);
-        getCurrentComponents();
+        setComponents((prev)=> {
+          return prev.filter(item => item.id !== toDelete.id)
+        })
+        await AxiosInstance.delete('/components', {
+          data: { componentId: toDelete.id, appId: id }
+        });
       }
     }
   };
