@@ -39,7 +39,6 @@ const Preview = () => {
       });
       const res = await AxiosInstance.get(`/release/${id}`);
       console.log(res.data);
-      
     };
     release();
   }, []);
@@ -52,63 +51,65 @@ const Preview = () => {
   return (
     <div className="bg-[#e9eff1] w-full h-[100vh]">
       <AppHeader />
-      {components.map((comp: componentType) => {
-        switch (comp.type) {
-          case 'button':
-            return (
-              <span
-                style={{
-                  ...comp.styles,
-                  ...constantStyles,
-                  ...comp.layouts,
-                  position: 'absolute'
-                }}
-                className="cursor-pointer"
-                key={comp.id}
-              >
-                {comp.styles.content}
-              </span>
-            );
-          case 'text':
-            return (
-              <Typography
-                style={{
-                  ...comp.styles,
-                  ...constantStyles,
-                  ...comp.layouts,
-                  position: 'absolute'
-                }}
-                key={comp.id}
-              >
-                {comp.styles.content}
-              </Typography>
-            );
-          case 'container':
-            return (
-              <div
-                style={{
-                  ...comp.styles,
-                  ...constantStyles,
-                  ...comp.layouts,
-                  position: 'absolute'
-                }}
-              >
-                {comp.styles.content}
-              </div>
-            );
-          case 'input':
-            return (
-              <input
-                type="text"
-                style={{ ...comp.styles, ...comp.layouts, position: 'absolute' }}
-                placeholder={comp.styles.content}
-              />
-            );
+      <div className="relative">
+        {components.map((comp: componentType) => {
+          switch (comp.type) {
+            case 'button':
+              return (
+                <span
+                  style={{
+                    ...comp.styles,
+                    ...constantStyles,
+                    ...comp.layouts,
+                    position: 'absolute'
+                  }}
+                  className="cursor-pointer"
+                  key={comp.id}
+                >
+                  {comp.styles.content}
+                </span>
+              );
+            case 'text':
+              return (
+                <Typography
+                  style={{
+                    ...comp.styles,
+                    ...constantStyles,
+                    ...comp.layouts,
+                    position: 'absolute'
+                  }}
+                  key={comp.id}
+                >
+                  {comp.styles.content}
+                </Typography>
+              );
+            case 'container':
+              return (
+                <div
+                  style={{
+                    ...comp.styles,
+                    ...constantStyles,
+                    ...comp.layouts,
+                    position: 'absolute'
+                  }}
+                >
+                  {comp.styles.content}
+                </div>
+              );
+            case 'input':
+              return (
+                <input
+                  type="text"
+                  style={{ ...comp.styles, ...comp.layouts, position: 'absolute' }}
+                  placeholder={comp.styles.content}
+                />
+              );
 
-          default:
-            return null;
-        }
-      })}
+            default:
+              return null;
+          }
+        })}
+      </div>
     </div>
   );
 };
