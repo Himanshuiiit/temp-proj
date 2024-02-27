@@ -13,6 +13,7 @@ type Props = {
   getCurrentComponents: () => void;
   setLoading: (loading: boolean) => void;
   loading: boolean;
+  setActive: any;
 };
 
 const ApplicationHeader: React.FC<Props> = ({
@@ -20,7 +21,8 @@ const ApplicationHeader: React.FC<Props> = ({
   versions,
   setActiveVersion,
   activeVersion,
-  getCurrentComponents
+  getCurrentComponents,
+  setActive
 }) => {
   const [versionName, setVersionName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -43,6 +45,7 @@ const ApplicationHeader: React.FC<Props> = ({
   };
 
   const handleChange = async (value: string) => {
+    setActive(null);
     const newActiveVersion = versions.find((ver) => ver.name === value);
     setActiveVersion(newActiveVersion);
     localStorage.setItem('activeVersion', JSON.stringify(newActiveVersion));

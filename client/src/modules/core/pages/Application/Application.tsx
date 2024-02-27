@@ -176,6 +176,7 @@ const Application: React.FC = () => {
             getCurrentComponents={getCurrentComponents}
             setLoading={setLoading}
             loading={loading}
+            setActive={setActive}
           />
           {!loading ? (
             <Content onClick={() => setActive(null)} className="bg-[#e9eff1]">
