@@ -14,6 +14,8 @@ const Release = () => {
   const state = useSelector(({ component }) => component);
   const user = useSelector(({ auth }) => auth);
 
+  console.log(user);
+
   const [components, setComponents] = useState(state.components);
 
   useEffect(() => {
