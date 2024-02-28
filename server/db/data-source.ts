@@ -2,18 +2,6 @@ import { DataSource, DataSourceOptions } from "typeorm";
 require('dotenv').config()
 
 export let dataSourceOptions
-// : DataSourceOptions = {
-//     type: 'postgres',
-//     host: 'roundhouse.proxy.rlwy.net',
-//     username: 'postgres',
-//     password: 'Egcb6af-6543C3Cag4CcbfEcAc5fdeE3',
-//     database: 'railway',
-//     port: 15267,
-//     entities: ['dist/**/*.entity.js'],
-//     migrations: ['dist/db/migrations/*.js']
-// }
-
-console.log(process.env.NODE_ENV)
 
 if(process.env.NODE_ENV==="production")
     dataSourceOptions = {
@@ -28,11 +16,25 @@ if(process.env.NODE_ENV==="production")
     } as DataSourceOptions
 
 
-if(process.env.NODE_ENV==="dev")
+else if(process.env.NODE_ENV==="dev")
+    dataSourceOptions = {
+        type: 'postgres',
+        host: process.env.DEV_DB_HOST,
+        username: process.env.DEV_DB_USERNAME,
+        password: process.env.DEV_DB_PASSWORD,
+        database: process.env.DEV_DB_DATABASE,
+        port: parseInt(process.env.DEV_DB_PORT),
+        entities: ['dist/**/*.entity.js'],
+        migrations: ['dist/db/migrations/*.js'],
+        synchronize: true
+        
+    } as DataSourceOptions
+
+else if(process.env.NODE_ENV==="test")
     dataSourceOptions = {
         type: 'sqlite',
-        database: 'db.sqlite',
-        entities: ['dist/**/*.entity.js'],
+        database: 'test.sqlite',
+        entities: ['**/*.entity.ts'],
         synchronize: true
     } as DataSourceOptions
 

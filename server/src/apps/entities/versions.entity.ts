@@ -1,11 +1,14 @@
 import { App } from './app.entity';
-import { BaseEntity, Column, Entity, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Page } from './pages.entity';
 
 @Entity({ name: 'versions' })
 export class Version extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @CreateDateColumn({ type:'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 
   @Column()
   name: string;
@@ -26,8 +29,7 @@ export class Version extends BaseEntity {
   // })
   // globalSettings: object;
 
-  @ManyToOne(() => App, (app) => app.versions, { onDelete: 'CASCADE' })
-  @JoinTable()
+  @ManyToOne(() => App, (app) => app.versions, { onDelete: 'CASCADE'})
   app: App;
 
   @OneToMany(() => Page, (page) => page.version, { cascade: ['remove'] })

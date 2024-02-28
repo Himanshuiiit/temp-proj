@@ -30,12 +30,13 @@ export class AppsService {
     newApp.owner = user;
     newApp.users = [user];
 
-    await this.entityManager.transaction(async (manager) => {
-      await manager.save(newApp);
-      await this.versionsService.createVersion('v1', newApp);
-    });
-
-    return newApp;
+    const app = await this.appRepository.save(newApp)
+    const version = await this.versionsService.createVersion('v1', app)
+    // await this.entityManager.transaction(async (manager) => {
+    //   await manager.save(newApp);
+    //   await this.versionsService.createVersion('v1', newApp);
+    // });
+    return app;
   }
 
   async updateName(name: string, appId: string)

@@ -26,10 +26,14 @@ export class AppsController {
   @Post('/update')
   @UseGuards(AppOwnerGuard)
   async updateName(
+    @CurrentUser() user: User,
     @Body('name') name: string,
-    @Body('appId') appId: string
+    @Body('appId') appId: string,
+    @Res() res: any
   ) {
-    this.appsService.updateName(name, appId)
+    if (user.apps.some((app) => app.name === name)) return res.status(409).send({ message: 'App name already exists' });
+    const app = await this.appsService.updateName(name, appId)
+    return res.status(201).send(app)
   }
 
   @Post('/')

@@ -45,7 +45,8 @@ export class VersionsService {
   async updateVersion(versionId: string, versionData: Partial<Version>){
     const version = await this.getVersion(versionId)
     Object.assign(version, versionData)
-    this.versionRepository.save(version)
+    const newVersion = await this.versionRepository.save(version)
+    return newVersion
   }
 
   async deleteVersion(id: string) {

@@ -10,7 +10,9 @@ import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { AppsModule } from './apps/apps.module';
 import { ComponentsModule } from './components/components.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
-const cookieSession = require('cookie-session');
+// import * as cookieSession from 'cookie-session';
+const cookieSession = require('cookie-session')
+import * as parser from 'cookie-parser'
 
 @Module({
   imports: [
@@ -48,10 +50,18 @@ export class AppModule {
         cookieSession({
           keys: [this.configService.get('secret')],
           maxAge: 24 * 60 * 60 * 1000,
-          resave: false,
-          saveUninitialized: false,
+          secure: false,
         })
       )
       .forRoutes('*');
   }
+
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(
+  //       parser(this.configService.get('secret'))
+  //     )
+  //     .forRoutes('*')
+  // }
+
 }

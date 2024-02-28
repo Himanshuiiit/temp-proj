@@ -33,9 +33,13 @@ export class ComponentsService {
 
     await this.entityManager.transaction(async (manager) => {
       await manager.save(newComponent);
-      const newLayout = this.layoutRepository.create({ ...layout, component: newComponent, appId });
+      const newLayout = this.layoutRepository.create({ 
+        ...layout, 
+        component: 
+        newComponent, appId 
+      });
       await manager.save(newLayout);
-    });
+    })
     return newComponent;
   }
 
@@ -47,8 +51,12 @@ export class ComponentsService {
     Object.assign(component.layouts, componentDto.layout);
     Object.assign(component, componentDto.component);
 
-    await this.layoutRepository.save(component.layouts);
-    await this.componentsRepository.save(component);
+    await this.entityManager.transaction(async (manager) => {
+      await manager.save(component.layouts)
+      await manager.save(component)
+    })
+    // await this.layoutRepository.save(component.layouts);
+    // await this.componentsRepository.save(component);
     return component;
   }
 
