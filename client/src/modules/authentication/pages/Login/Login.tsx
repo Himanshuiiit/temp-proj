@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const { Title, Text, Link } = Typography;
-
+const BASE_URL: string = import.meta.env.VITE_BASE_URL;
 const Login: React.FC = () => {
   const state = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Login: React.FC = () => {
   }, []);
 
   const handleGoogleLogin = async () => {
-    window.location.href = 'https://tooljet-v2.onrender.com/api/auth/google';
+    window.location.href = `${BASE_URL}/auth/google`;
   };
   return (
     <Flex className="h-screen w-screen" vertical justify="center" align="center">
@@ -32,9 +32,7 @@ const Login: React.FC = () => {
           src="https://app.tooljet.com/assets/images/onboardingassets/SSO/Google.svg"
           className="pr-3 relative bottom-1 w-10"
         />{' '}
-        <Text className="relative bottom-5 text-md font-semibold" >
-          Login with Google
-        </Text>
+        <Text className="relative bottom-5 text-md font-semibold">Login with Google</Text>
       </Button>
       <div className="my-3 flex gap-2">
         <div className="w-32 h-[1.5px] bg-slate-300 relative top-2.5" />
